@@ -1,5 +1,4 @@
-function install(Vue, options) {
-
+function install (Vue, options) {
 // 全局filter
   Vue.filter('filterPrice', function (value) { // 价格过滤器 格式 20.00
     if (!value) return '0.00'
