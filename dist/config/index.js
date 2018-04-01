@@ -20,7 +20,7 @@
 /**
  * 动态加载初始资源
  */
-;(function(window, document) {
+;(function (window, document) {
   var resList = {
     css: [
       window.SITE_CONFIG.cdnUrl + '/static/css/app.css'
@@ -34,46 +34,46 @@
 
   // 样式
   (function () {
-    document.getElementsByTagName('html')[0].style.opacity = 0;
-    var i = 0;
-    var _style = null;
+    document.getElementsByTagName('html')[0].style.opacity = 0
+    var i = 0
+    var _style = null
     var createStyles = function () {
       if (i >= resList.css.length) {
-        document.getElementsByTagName('html')[0].style.opacity = 1;
-        return;
+        document.getElementsByTagName('html')[0].style.opacity = 1
+        return
       }
-      _style = document.createElement('link');
-      _style.href = resList.css[i];
-      _style.setAttribute('rel', 'stylesheet');
+      _style = document.createElement('link')
+      _style.href = resList.css[i]
+      _style.setAttribute('rel', 'stylesheet')
       _style.onload = function () {
-        i++;
-        createStyles();
+        i++
+        createStyles()
       }
-      document.getElementsByTagName('head')[0].appendChild(_style);
+      document.getElementsByTagName('head')[0].appendChild(_style)
     }
-    createStyles();
-  })();
+    createStyles()
+  })()
 
   // 脚本
-  var isLoad = false;
+  var isLoad = false
   document.onreadystatechange = function () {
     if (!isLoad && (document.readyState === 'interactive' || document.readyState === 'complete')) {
-      isLoad = true;
-      var i = 0;
-      var _script = null;
+      isLoad = true
+      var i = 0
+      var _script = null
       var createScripts = function () {
         if (i >= resList.js.length) {
-          return;
+          return
         }
-        _script = document.createElement('script');
-        _script.src = resList.js[i];
+        _script = document.createElement('script')
+        _script.src = resList.js[i]
         _script.onload = function () {
-          i++;
-          createScripts();
+          i++
+          createScripts()
         }
-        document.getElementsByTagName('body')[0].appendChild(_script);
+        document.getElementsByTagName('body')[0].appendChild(_script)
       }
-      createScripts();
+      createScripts()
     }
-  };
-})(window, document);
+  }
+})(window, document)
