@@ -18,10 +18,10 @@ export default new Router({
       path: '/',
       component: _import('layout/index'),
       name: 'layout',
-      redirect: { name: 'home' },
+      redirect: { name: 'team' },
       desc: '上左右整体布局',
       children: [
-        { path: '/home', component: _import('home/index'), name: 'home', desc: '首页' },
+        // { path: '/home', component: _import('home/index'), name: 'home', desc: '首页' },
         {
           path: '/content-tabs',
           component: _import('layout/content-tabs'),

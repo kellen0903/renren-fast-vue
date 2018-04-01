@@ -8,10 +8,10 @@
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1-1" @click="$router.push({ name: 'home' })">
+     <!--   <el-menu-item index="1-1" @click="$router.push({ name: 'home' })">
           <i class="site-sidebar__menu-icon fa fa-home"></i>
           <span slot="title">首页</span>
-        </el-menu-item>
+        </el-menu-item>-->
         <sub-menu-nav
           v-for="menuNav in $store.state.menuNavList"
           :key="menuNav.menuId"

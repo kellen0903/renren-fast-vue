@@ -59,7 +59,7 @@
         header-align="center"
         align="center"
         label="投注金额">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{ scope.row.amount | filterPrice }}
         </template>
       </el-table-column>
@@ -102,6 +102,9 @@
         header-align="center"
         align="center"
         label="中奖金额">
+        <template slot-scope="scope">
+          {{ scope.row.awardAmount | filterPrice }}
+        </template>s
       </el-table-column>
     </el-table>
     <el-pagination
@@ -129,13 +132,15 @@
         pageIndex: 1,
         pageSize: 10,
         totalPage: 0,
-        dataListLoading: false
+        dataListLoading: false,
+        tid: ''
       }
     },
     methods: {
       init (tid) {
         this.visible = true
         this.getDataList(tid)
+        this.tid = tid
       },
       // 获取数据列表
       getDataList (tid) {
@@ -143,7 +148,7 @@
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          tid: tid,
+          tid: this.tid,
           happyId: this.happyId
         }
         API.order.list(params).then(({data}) => {
