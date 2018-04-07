@@ -43,6 +43,12 @@
         align="center"
         label="会员id">
       </el-table-column>
+      <el-table-column
+        prop="happyName"
+        header-align="center"
+        align="center"
+        label="会员昵称">
+      </el-table-column>
 
       <el-table-column
         prop="teamName"
