@@ -28,3 +28,12 @@ export function updateGame (param) {
     data: requestParam(param)
   })
 }
+
+  // 发送消息
+export function sendMessage (param) {
+  return request({
+    url: requestUrl('robot/team/sendMessage'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

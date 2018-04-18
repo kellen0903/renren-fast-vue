@@ -6,7 +6,7 @@
     width="80%">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.happyId" placeholder="环聊ID" clearable></el-input>
+        <el-input v-model="dataForm.happyId" placeholder="欢聊ID" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -26,11 +26,11 @@
         label="订单编号">
       </el-table-column>
       <el-table-column
-        prop="happyId"
+        prop="nickName"
         header-align="center"
         align="center"
         width="100"
-        label="欢聊id">
+        label="会员昵称">
       </el-table-column>
       <el-table-column
         prop="id"

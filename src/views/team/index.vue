@@ -104,6 +104,15 @@
           <el-button type="text" size="small" @click="orderHandle(scope.row.id)">
             投注列表
           </el-button>
+            <el-button type="text" size="small" @click="memberHandle(scope.row.id)">
+            会员列表
+          </el-button>
+         <el-button type="text" size="small" @click="sendMsgHandle(scope.row.id)">
+            发送消息
+        </el-button>
+         <el-button type="text" size="small" @click="staticHandle(scope.row.id)">
+            盈亏统计
+        </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -121,6 +130,9 @@
     <cqsscConfig v-if="cqsscConfigVisible" ref="cqsscConfig" @refreshDataList="getDataList"></cqsscConfig>
     <!-- 弹窗, 日志列表 -->
     <order v-if="orderVisible" ref="order" @refreshDataList="getDataList"></order>
+    <!--会员-->
+    <member v-if="memberVisible" ref="member"  @refreshDataList="getDataList"></member>
+     <message v-if="sendMsgVisible" ref="message"  @refreshDataList="getDataList"></message>
   </div>
 </template>
 
@@ -129,6 +141,8 @@
   import pk10Config from './pk10Config'
   import cqsscConfig from './cqsscConfig'
   import order from './order'
+  import member from './member'
+  import message from './message'
 
   export default {
     data () {
@@ -145,13 +159,17 @@
         addOrUpdateVisible: false,
         pk10ConfigVisible: false,
         cqsscConfigVisible: false,
-        orderVisible: false
+        orderVisible: false,
+        memberVisible: false,
+        sendMsgVisible: false
       }
     },
     components: {
       pk10Config,
       cqsscConfig,
-      order
+      order,
+      member,
+      message
     },
     activated () {
       this.getDataList()
@@ -265,7 +283,21 @@
         this.$nextTick(() => {
           this.$refs.order.init(tid)
         })
-      }
+      },
+        // 会员列表
+      memberHandle (tid) {
+        this.memberVisible = true
+        this.$nextTick(() => {
+          this.$refs.member.init(tid)
+        })
+      },
+      // 会员列表
+      sendMsgHandle (tid) {
+        this.sendMsgVisible = true
+        this.$nextTick(() => {
+          this.$refs.message.init(tid)
+        })
+      },
     }
   }
 </script>

@@ -12,6 +12,7 @@ import * as pk10 from './modules/pk10'
 import * as cqssc from './modules/cqssc'
 import * as order from './modules/order'
 import * as cash from './modules/cash'
+import * as member from './modules/member'
 
 export default {
   common,     // 公共
@@ -27,6 +28,7 @@ export default {
   pk10,         // pk10
   cqssc,         // 重庆时时彩
   order,          // 订单管理
-  cash            // 提现
+  cash,            // 提现
+  member           // 会员
 
 }
