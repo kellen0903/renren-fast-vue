@@ -133,6 +133,7 @@
     <!--会员-->
     <member v-if="memberVisible" ref="member"  @refreshDataList="getDataList"></member>
      <message v-if="sendMsgVisible" ref="message"  @refreshDataList="getDataList"></message>
+    <stats v-if="statsVisible" ref="stats"  @refreshDataList="getDataList"></stats>
   </div>
 </template>
 
@@ -143,7 +144,7 @@
   import order from './order'
   import member from './member'
   import message from './message'
-
+  import stats from './stats'
   export default {
     data () {
       return {
@@ -161,7 +162,8 @@
         cqsscConfigVisible: false,
         orderVisible: false,
         memberVisible: false,
-        sendMsgVisible: false
+        sendMsgVisible: false,
+        statsVisible: false
       }
     },
     components: {
@@ -169,7 +171,8 @@
       cqsscConfig,
       order,
       member,
-      message
+      message,
+      stats
     },
     activated () {
       this.getDataList()
@@ -291,13 +294,21 @@
           this.$refs.member.init(tid)
         })
       },
-      // 会员列表
+      // 盈亏列表
       sendMsgHandle (tid) {
         this.sendMsgVisible = true
         this.$nextTick(() => {
           this.$refs.message.init(tid)
         })
       },
+
+      staticHandle (tid) {
+        this.statsVisible = true
+        this.$nextTick(() => {
+          this.$refs.stats.init(tid)
+        })
+      }
+
     }
   }
 </script>

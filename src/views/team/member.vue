@@ -3,7 +3,7 @@
     title="会员列表"
     :close-on-click-modal="false"
     :visible.sync="visible"
-    width="80%">
+    width="60%">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-input v-model="dataForm.nickName" placeholder="会员昵称" clearable></el-input>
@@ -22,28 +22,25 @@
         prop="happyId"
         header-align="center"
         align="center"
-        width="100"
         label="欢聊id">
       </el-table-column>
       <el-table-column
         prop="nickName"
         header-align="center"
         align="center"
-        width="100"
         label="会员昵称">
       </el-table-column>
-        
+
       <el-table-column
         prop="totalAmount"
         header-align="center"
         align="center"
-        width="100"
         label="余额">
         <template slot-scope="scope">
           {{ scope.row.totalAmount | filterPrice }}
         </template>
       </el-table-column>
-      
+
     </el-table>
     <el-pagination
       @size-change="sizeChangeHandle"
@@ -64,7 +61,8 @@
       return {
         visible: false,
         dataForm: {
-          happyId: ''
+          happyId: '',
+          nickName: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -87,7 +85,8 @@
           page: this.pageIndex,
           limit: this.pageSize,
           tid: this.tid,
-          happyId: this.happyId
+          happyId: this.happyId,
+          nickName: this.dataForm.nickName
         }
         API.member.list(params).then(({data}) => {
           if (data && data.code === 0) {

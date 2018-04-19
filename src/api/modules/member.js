@@ -10,3 +10,11 @@ export function list (params) {
     params: requestParam(params, 'get')
   })
 }
+
+export function staticAccount (params) {
+  return request({
+    url: requestUrl('/robot/member/staticAccount'),
+    method: 'post',
+    data: requestParam(params)
+  })
+}
