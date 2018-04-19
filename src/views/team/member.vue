@@ -62,21 +62,23 @@
         visible: false,
         dataForm: {
           happyId: '',
-          nickName: ''
+          nickName: '',
+          tid: ''
         },
         dataList: [],
         pageIndex: 1,
         pageSize: 10,
         totalPage: 0,
-        dataListLoading: false,
-        tid: ''
+        dataListLoading: false
       }
     },
     methods: {
       init (tid) {
+        this.dataForm.tid = tid
         this.visible = true
-        this.getDataList(tid)
-        this.tid = tid
+        this.$nextTick(() => {
+          this.getDataList(tid)
+        })
       },
       // 获取数据列表
       getDataList (tid) {
@@ -84,8 +86,8 @@
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          tid: this.tid,
-          happyId: this.happyId,
+          tid: tid,
+          happyId: this.dataForm.happyId,
           nickName: this.dataForm.nickName
         }
         API.member.list(params).then(({data}) => {

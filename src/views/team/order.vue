@@ -126,7 +126,8 @@
       return {
         visible: false,
         dataForm: {
-          happyId: ''
+          happyId: '',
+          tid: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -138,9 +139,11 @@
     },
     methods: {
       init (tid) {
-        this.visible = true
-        this.getDataList(tid)
-        this.tid = tid
+        this.dataForm.tid = tid
+        this.$nextTick(() => {
+          this.getDataList(tid)
+          this.visible = true
+        })
       },
       // 获取数据列表
       getDataList (tid) {
@@ -148,7 +151,7 @@
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          tid: this.tid,
+          tid: tid,
           happyId: this.happyId
         }
         API.order.list(params).then(({data}) => {
