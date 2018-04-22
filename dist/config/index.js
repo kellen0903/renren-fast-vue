@@ -12,7 +12,7 @@
   window.SITE_CONFIG.nestIframeRouteNameList = ['sql']
 
   // 静态资源文件夹名称
-  window.SITE_CONFIG.staticFileName = '180419'
+  window.SITE_CONFIG.staticFileName = '180422'
   // cdn地址
   window.SITE_CONFIG.cdnUrl = './' + window.SITE_CONFIG.staticFileName
 })()

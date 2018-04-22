@@ -151,8 +151,8 @@
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          tid: tid,
-          happyId: this.happyId
+          tid: this.dataForm.tid,
+          happyId: this.dataForm.happyId
         }
         API.order.list(params).then(({data}) => {
           if (data && data.code === 0) {

@@ -7,7 +7,7 @@
              label-width="120px" size="small" inline="true">
       <el-input
         type="textarea"
-        :rows="2"
+        :rows="7"
         placeholder="请输入内容"
         v-model="dataForm.message">
     </el-input>
@@ -32,7 +32,7 @@
           message:""
         },
         dataRule: {
-         
+
           message: [
             {required: true, message: '不能为空', trigger: 'blur'}
           ],
