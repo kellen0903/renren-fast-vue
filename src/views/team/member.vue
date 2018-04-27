@@ -17,12 +17,14 @@
       border
       v-loading="dataListLoading"
       height="460"
+      @cell-mouse-enter="handleMouseEnter"
+      @cell-mouse-leave="handleMouseOut"
       style="width: 100%;">
       <el-table-column
         prop="happyId"
         header-align="center"
         align="center"
-        label="欢聊id">
+        label="id">
       </el-table-column>
       <el-table-column
         prop="nickName"
@@ -37,7 +39,10 @@
         align="center"
         label="余额">
         <template slot-scope="scope">
-          {{ scope.row.totalAmount | filterPrice }}
+          <span v-if="!scope.row.editFlag">{{ scope.row.totalAmount | filterPrice }}</span>
+          <span v-if="scope.row.editFlag" class="cell-edit-input"><el-input v-model="updateAmount" placeholder="金额"></el-input></span>
+          <span v-if="!scope.row.editFlag" style="margin-left:10px;" class="cell-icon"  @click="handleEdit(scope.row)">  <i class="el-icon-edit"></i> </span>
+          <span v-if="scope.row.editFlag"  style="margin-left:10px;"  class="cell-icon"  @click="handleSave(scope.row)">  <i class="el-icon-document"></i> </span>
         </template>
       </el-table-column>
 
@@ -69,7 +74,8 @@
         pageIndex: 1,
         pageSize: 10,
         totalPage: 0,
-        dataListLoading: false
+        dataListLoading: false,
+        updateAmount: 0
       }
     },
     methods: {
@@ -111,7 +117,62 @@
       currentChangeHandle (val) {
         this.pageIndex = val
         this.getDataList()
+      },
+      handleEdit: function (row) {
+        this.dataList.forEach(e => {
+          if (e.happyId === row.happyId) {
+            e.editFlag = true
+          }
+        })
+        // 遍历数组改变editeFlag
+      },
+      handleSave: function (row) {
+        this.updateMemberAmount(row.tid, row.happyId, this.updateAmount)
+        // 保存数据，向后台取数据
+      },
+      handleMouseEnter: function (row, column, cell, event) {
+        cell.children[0].children[1].style.color = 'black'
+      },
+      handleMouseOut: function (row, column, cell, event) {
+        cell.children[0].children[1].style.color = '#ffffff'
+      },
+      updateMemberAmount: function (tid, happyId, amount) {
+        this.$confirm(`确定修改?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var params = {
+            'tid': tid,
+            'happyId': happyId,
+            'updateAmount': amount * 100
+          }
+          API.member.updateAmount(params).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList(tid)
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
       }
     }
   }
 </script>
+
+<style>
+  .cell-edit-input .el-input, .el-input__inner {
+    width:100px;
+  }
+  .cell-icon{
+    cursor:pointer;
+    color:#fff;
+  }
+</style>

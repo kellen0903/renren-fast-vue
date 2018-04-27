@@ -3,7 +3,7 @@
     :title="'配置重庆时时彩'"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
+    <el-form :inline="true" :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
              label-width="120px" size="small" inline="true">
       <!--<el-form-item label="开始时间" prop="playTimeStart" >-->
       <!--<el-input v-model="dataForm.playTimeStart" placeholder="游戏开始时间,如:09:00"></el-input>-->
@@ -26,6 +26,9 @@
       <el-form-item label="龙虎赔率" prop="dragonTigerOdds">
         <el-input v-model="dataForm.dragonTigerOdds"></el-input>
       </el-form-item>
+      <el-form-item label="和赔率" prop="heOdds">
+        <el-input v-model="dataForm.heOdds"></el-input>
+      </el-form-item>
       <el-form-item label="特码赔率" prop="codeOdds">
         <el-input v-model="dataForm.codeOdds"></el-input>
       </el-form-item>
@@ -35,8 +38,15 @@
       <el-form-item label="总大小赔率" prop="sumBigSmallOdds">
         <el-input v-model="dataForm.sumBigSmallOdds"></el-input>
       </el-form-item>
-      <el-form-item label="总合赔率" prop="sumOdds">
+      <el-form-item label="总和赔率" prop="sumOdds">
         <el-input v-model="dataForm.sumOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="豹子赔率" prop="leopardOdds">
+        <el-input v-model="dataForm.leopardOdds"></el-input>
+      </el-form-item>
+      </el-form-item>
+      <el-form-item label="是否23点通杀" prop="twentyTwoKillFlag">
+        <el-switch v-model="dataForm.twentyTwoKillFlag"></el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -90,7 +100,13 @@
             {required: true, message: '总大小赔率不能为空', trigger: 'blur'}
           ],
           sumOdds: [
-            {required: true, message: '总合赔率不能为空', trigger: 'blur'}
+            {required: true, message: '总和赔率不能为空', trigger: 'blur'}
+          ],
+          leopardOdds: [
+            {required: true, message: '豹子赔率不能为空', trigger: 'blur'}
+          ],
+          heOdds: [
+            {required: true, message: '和赔率不能为空', trigger: 'blur'}
           ],
         }
       }

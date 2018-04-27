@@ -93,10 +93,10 @@
           <el-button v-if="scope.row.status === 2" type="text" size="small" @click="updateGame(scope.row.id,1,'')">
             关闭游戏
           </el-button>
-          <!--<el-button v-if="scope.row.lotteryType == '1' " type="text" size="small"-->
-                     <!--@click="updateGame(scope.row.id,'',2)">-->
-            <!--切换至时时彩-->
-          <!--</el-button>-->
+          <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small"
+                     @click="updateGame(scope.row.id,'',2)">
+            切换至时时彩
+          </el-button>
           <el-button v-if="scope.row.lotteryType == '2' " type="text" size="small"
                      @click="updateGame(scope.row.id,'',1)">
             切换至pk10

@@ -8,9 +8,10 @@ import VueCookie from 'vue-cookie'  // api: https://github.com/alfhen/vue-cookie
 import '@/element-ui'               // api: https://github.com/ElemeFE/element
 import '@/iconfont'                 // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
-import { isAuth } from '@/utils'
+import {isAuth} from '@/utils'
 // import '@/mock'                     // api: https://github.com/nuysoft/Mock
 import filter from '@/filters/index'
+
 Vue.config.productionTip = false
 
 Vue.use(VueCookie)
@@ -23,5 +24,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

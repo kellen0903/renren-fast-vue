@@ -2,7 +2,7 @@
   <header class="site-topbar">
     <div class="site-topbar__header">
       <h1 class="site-logo" @click="$router.push({ name: 'home' })">
-        <a class="site-logo__lg" href="javascript:;">欢聊机器人</a>
+        <a class="site-logo__lg" href="javascript:;">机器人</a>
         <a class="site-logo__mini" href="javascript:;">欢天喜地</a>
       </h1>
     </div>

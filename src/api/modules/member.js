@@ -18,3 +18,10 @@ export function staticAccount (params) {
     data: requestParam(params)
   })
 }
+export function updateAmount (params) {
+  return request({
+    url: requestUrl('/robot/member/updateAmount'),
+    method: 'post',
+    data: requestParam(params)
+  })
+}
