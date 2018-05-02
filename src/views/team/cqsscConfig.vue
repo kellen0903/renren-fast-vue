@@ -132,6 +132,10 @@
       dataFormSubmit() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
+            var twentyTwoKillFlag=this.dataForm.twentyTwoKillFlag
+            if(!twentyTwoKillFlag){
+              this.dataForm.twentyTwoKillFlag=false
+            }
             var params = this.dataForm
             API.cqssc.save(params).then(({data}) => {
               if (data && data.code === 0) {
