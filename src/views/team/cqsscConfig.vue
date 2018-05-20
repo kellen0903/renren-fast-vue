@@ -44,9 +44,29 @@
       <el-form-item label="豹子赔率" prop="leopardOdds">
         <el-input v-model="dataForm.leopardOdds"></el-input>
       </el-form-item>
+      <el-form-item label="红包中1赔率" prop="redPacketOneOdds">
+        <el-input v-model="dataForm.redPacketOneOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="红包中2赔率" prop="redPacketTwoOdds">
+        <el-input v-model="dataForm.redPacketTwoOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="红包中3赔率" prop="redPacketThreeOdds">
+        <el-input v-model="dataForm.redPacketThreeOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="红包中4赔率" prop="redPacketFourOdds">
+        <el-input v-model="dataForm.redPacketFourOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="红包中5赔率" prop="redPacketFiveOdds">
+        <el-input v-model="dataForm.redPacketFiveOdds"></el-input>
+      </el-form-item>
+      <el-form-item label="合赔率" prop="heTwentyThreeOdds">
+        <el-input v-model="dataForm.heTwentyThreeOdds"></el-input>
       </el-form-item>
       <el-form-item label="是否23点通杀" prop="twentyTwoKillFlag">
         <el-switch v-model="dataForm.twentyTwoKillFlag"></el-switch>
+      </el-form-item>
+      <el-form-item label="红包玩法" prop="redPacketFlag">
+        <el-switch v-model="dataForm.redPacketFlag"></el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -132,9 +152,13 @@
       dataFormSubmit() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            var twentyTwoKillFlag=this.dataForm.twentyTwoKillFlag
-            if(!twentyTwoKillFlag){
-              this.dataForm.twentyTwoKillFlag=false
+            var twentyTwoKillFlag = this.dataForm.twentyTwoKillFlag
+            if (!twentyTwoKillFlag) {
+              this.dataForm.twentyTwoKillFlag = false
+            }
+            var redPacketFlag = this.dataForm.redPacketFlag
+            if (!redPacketFlag) {
+              this.dataForm.redPacketFlag = false
             }
             var params = this.dataForm
             API.cqssc.save(params).then(({data}) => {

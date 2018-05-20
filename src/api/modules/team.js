@@ -37,3 +37,12 @@ export function sendMessage (param) {
     data: requestParam(param)
   })
 }
+
+// 会员账户清零
+export function initAccount (param) {
+  return request({
+    url: requestUrl('robot/team/initAccount'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

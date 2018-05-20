@@ -104,15 +104,19 @@
           <el-button type="text" size="small" @click="orderHandle(scope.row.id)">
             投注列表
           </el-button>
-            <el-button type="text" size="small" @click="memberHandle(scope.row.id)">
+          <el-button type="text" size="small" @click="memberHandle(scope.row.id)">
             会员列表
           </el-button>
-         <el-button type="text" size="small" @click="sendMsgHandle(scope.row.id)">
+          <el-button type="text" size="small" @click="sendMsgHandle(scope.row.id)">
             发送消息
-        </el-button>
-         <el-button type="text" size="small" @click="staticHandle(scope.row.id)">
+          </el-button>
+          <el-button type="text" size="small" @click="staticHandle(scope.row.id)">
             盈亏统计
-        </el-button>
+          </el-button>
+          <el-button type="text" size="small"
+                     @click="initAccount(scope.row.id)">
+            会员账户初始化
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -131,9 +135,9 @@
     <!-- 弹窗, 日志列表 -->
     <order v-if="orderVisible" ref="order" @refreshDataList="getDataList"></order>
     <!--会员-->
-    <member v-if="memberVisible" ref="member"  @refreshDataList="getDataList"></member>
-     <message v-if="sendMsgVisible" ref="message"  @refreshDataList="getDataList"></message>
-    <stats v-if="statsVisible" ref="stats"  @refreshDataList="getDataList"></stats>
+    <member v-if="memberVisible" ref="member" @refreshDataList="getDataList"></member>
+    <message v-if="sendMsgVisible" ref="message" @refreshDataList="getDataList"></message>
+    <stats v-if="statsVisible" ref="stats" @refreshDataList="getDataList"></stats>
   </div>
 </template>
 
@@ -145,6 +149,7 @@
   import member from './member'
   import message from './message'
   import stats from './stats'
+
   export default {
     data () {
       return {
@@ -280,6 +285,34 @@
           })
         })
       },
+
+      // 初始化账户金额
+      initAccount (tid) {
+        this.$confirm(`确定清零所有账户积分`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var params = {
+            'tid': tid
+          }
+          API.team.initAccount(params).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
+      },
+
       // 订单列表
       orderHandle (tid) {
         this.orderVisible = true
@@ -287,7 +320,7 @@
           this.$refs.order.init(tid)
         })
       },
-        // 会员列表
+      // 会员列表
       memberHandle (tid) {
         this.memberVisible = true
         this.$nextTick(() => {

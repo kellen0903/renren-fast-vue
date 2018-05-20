@@ -87,12 +87,12 @@
         })
       },
       // 获取数据列表
-      getDataList (tid) {
+      getDataList () {
         this.dataListLoading = true
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          tid: tid,
+          tid: this.dataForm.tid,
           happyId: this.dataForm.happyId,
           nickName: this.dataForm.nickName
         }
