@@ -46,3 +46,12 @@ export function initAccount (param) {
     data: requestParam(param)
   })
 }
+
+// 绑定财务
+export function bindFinancial (param) {
+  return request({
+    url: requestUrl('robot/team/bindFinancial'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

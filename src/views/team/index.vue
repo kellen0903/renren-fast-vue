@@ -117,6 +117,9 @@
                      @click="initAccount(scope.row.id)">
             会员账户初始化
           </el-button>
+          <el-button type="text" size="small" @click="bindFinancialHandle(scope.row.id)">
+            绑定财务
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -138,6 +141,7 @@
     <member v-if="memberVisible" ref="member" @refreshDataList="getDataList"></member>
     <message v-if="sendMsgVisible" ref="message" @refreshDataList="getDataList"></message>
     <stats v-if="statsVisible" ref="stats" @refreshDataList="getDataList"></stats>
+    <financial v-if="bindFinancialVisible" ref="financial" @refreshDataList="getDataList"></financial>
   </div>
 </template>
 
@@ -149,6 +153,7 @@
   import member from './member'
   import message from './message'
   import stats from './stats'
+  import financial from './financial'
 
   export default {
     data () {
@@ -168,7 +173,8 @@
         orderVisible: false,
         memberVisible: false,
         sendMsgVisible: false,
-        statsVisible: false
+        statsVisible: false,
+        bindFinancialVisible: false
       }
     },
     components: {
@@ -177,7 +183,8 @@
       order,
       member,
       message,
-      stats
+      stats,
+      financial
     },
     activated () {
       this.getDataList()
@@ -327,11 +334,19 @@
           this.$refs.member.init(tid)
         })
       },
-      // 盈亏列表
+      // 发送消息
       sendMsgHandle (tid) {
         this.sendMsgVisible = true
         this.$nextTick(() => {
           this.$refs.message.init(tid)
+        })
+      },
+
+      // 绑定财务
+      bindFinancialHandle (tid) {
+        this.bindFinancialVisible = true
+        this.$nextTick(() => {
+          this.$refs.financial.init(tid)
         })
       },
 
