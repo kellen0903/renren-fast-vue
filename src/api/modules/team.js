@@ -55,3 +55,12 @@ export function bindFinancial (param) {
     data: requestParam(param)
   })
 }
+
+// 绑定财务
+export function openLottery(param) {
+  return request({
+    url: requestUrl('robot/team/openLottery'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

@@ -7,6 +7,20 @@
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-input  v-model="awardData.period" placeholder="期号,如20180622108" clearable>
+        </el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="awardData.awardNumers" placeholder="开奖号码，10号输入0" clearable>
+        </el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="openLottery('1')">pk10开奖</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="warning" @click="openLottery('2')">时时彩开奖</el-button>
+      </el-form-item>
     </el-form>
     <el-table
       :data="dataList"
@@ -156,10 +170,15 @@
   import financial from './financial'
 
   export default {
-    data () {
+    data() {
       return {
         dataForm: {
           teamName: ''
+        },
+        awardData: {
+          lotteryType: '',
+          awardNumers: '',
+          period: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -174,7 +193,14 @@
         memberVisible: false,
         sendMsgVisible: false,
         statsVisible: false,
-        bindFinancialVisible: false
+        bindFinancialVisible: false,
+        options: [{
+          value: '北京赛车',
+          label: '1'
+        }, {
+          value: '时时彩',
+          label: '2'
+        }]
       }
     },
     components: {
@@ -186,12 +212,12 @@
       stats,
       financial
     },
-    activated () {
+    activated() {
       this.getDataList()
     },
     methods: {
       // 获取数据列表
-      getDataList () {
+      getDataList() {
         this.dataListLoading = true
         var params = {
           page: this.pageIndex,
@@ -210,22 +236,22 @@
         })
       },
       // 每页数
-      sizeChangeHandle (val) {
+      sizeChangeHandle(val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle (val) {
+      currentChangeHandle(val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle (val) {
+      selectionChangeHandle(val) {
         this.dataListSelections = val
       },
       // 游戏配置
-      gameConfigHandle (id, lotteryType) {
+      gameConfigHandle(id, lotteryType) {
         if (lotteryType === 1) {
           this.pk10ConfigVisible = true
           this.$nextTick(() => {
@@ -238,7 +264,7 @@
           })
         }
       },
-      bindRobot (tid) {
+      bindRobot(tid) {
         this.$confirm(`确定绑定机器人?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -265,7 +291,7 @@
       },
 
       // 修改游戏
-      updateGame (tid, status, lotteryType) {
+      updateGame(tid, status, lotteryType) {
         this.$confirm(`确定更改游戏`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -294,7 +320,7 @@
       },
 
       // 初始化账户金额
-      initAccount (tid) {
+      initAccount(tid) {
         this.$confirm(`确定清零所有账户积分`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -320,22 +346,51 @@
         })
       },
 
+      // 手动开奖
+      openLottery(lotteryType) {
+        this.$confirm(`确定开奖`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var params = {
+            'period': this.awardData.period,
+            'awardNumbers': this.awardData.awardNumers,
+            'lotteryType': lotteryType
+          }
+          API.team.openLottery(params).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
+      },
+
       // 订单列表
-      orderHandle (tid) {
+      orderHandle(tid) {
         this.orderVisible = true
         this.$nextTick(() => {
           this.$refs.order.init(tid)
         })
       },
       // 会员列表
-      memberHandle (tid) {
+      memberHandle(tid) {
         this.memberVisible = true
         this.$nextTick(() => {
           this.$refs.member.init(tid)
         })
       },
       // 发送消息
-      sendMsgHandle (tid) {
+      sendMsgHandle(tid) {
         this.sendMsgVisible = true
         this.$nextTick(() => {
           this.$refs.message.init(tid)
@@ -343,14 +398,14 @@
       },
 
       // 绑定财务
-      bindFinancialHandle (tid) {
+      bindFinancialHandle(tid) {
         this.bindFinancialVisible = true
         this.$nextTick(() => {
           this.$refs.financial.init(tid)
         })
       },
 
-      staticHandle (tid) {
+      staticHandle(tid) {
         this.statsVisible = true
         this.$nextTick(() => {
           this.$refs.stats.init(tid)
